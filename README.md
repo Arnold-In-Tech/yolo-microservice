@@ -108,7 +108,7 @@ Images built can be accessed on Dockerhub here:
 - [Backend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-backend)
 
 ## Author 
-Arnold. A., 2024
+Arnold. A.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE.md) file for details.
