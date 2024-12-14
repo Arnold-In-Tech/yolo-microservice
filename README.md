@@ -36,24 +36,24 @@ git clone https://github.com/Arnold-In-Tech/yolo-microservice
 
 ### Start backend
 
-Check your operating system's built-in init system used to run and manage your mongod process:
+     - Check your operating system's built-in init system used to run and manage your mongod process:
 
 ```console
 foo@bar:~$ ps --no-headers -o comm 1
 systemd
 ```
 
-Start MongoDB. 
+     - Start MongoDB. 
 ```sh
 sudo systemctl start mongod || sudo service mongod start 
 ```
 
-Verify that MongoDB has started successfully.
+     - Verify that MongoDB has started successfully.
 ```sh
 sudo systemctl status mongod
 ```
 
-Start server
+     - Start server
 ```sh
 cd ./yolo-microservice/backend
 npm install
