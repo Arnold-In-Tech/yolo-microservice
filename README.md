@@ -68,7 +68,7 @@ cd ./client
 npm install
 ```
 
-If using nodeV17 and above, update environment:
+If using nodeV17 and above, update environment first:
 ```sh
 export NODE_OPTIONS=--openssl-legacy-provider
 ```
@@ -106,8 +106,5 @@ Images built can be accessed on Dockerhub here:
 - [Backend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-backend)
 
 # Author 
-Arnold. A.
-
-# Date
-2024
+Arnold. A., 2024
 
