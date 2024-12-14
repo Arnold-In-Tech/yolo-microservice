@@ -13,7 +13,7 @@ This project involved the containerization and deployment of a full-stack yolo a
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 
 
-# ------------------------------------------------ #
+------------------------------------------------ 
 
 # Requirements
 Install the docker engine here:
@@ -29,7 +29,7 @@ Install the docker engine here:
 git clone https://github.com/Arnold-In-Tech/yolo-microservice
 ```
 
-# ------------------------------------------------ #
+------------------------------------------------ 
 
 # Start backend
 
@@ -57,7 +57,7 @@ npm install
 npm start
 ```
 
-# ------------------------------------------------ #
+------------------------------------------------ 
 
 # Start front-end
 
@@ -77,7 +77,7 @@ else
 npm start
 ```
 
-# ------------------------------------------------ #
+------------------------------------------------
 
 # Orchestration using Docker compose
 
@@ -97,7 +97,7 @@ sudo docker-compose build
 sudo docker-compose up  
 ```
 
-# ------------------------------------------------ #
+------------------------------------------------
 
 # Images repositories
 Images built can be accessed on Dockerhub here:
