@@ -1,11 +1,13 @@
 
-# Description
+# Yolo microservice application
+
+## Description
 An e-commerce website that doubles-up as a dashboard where you can load retail products on to the site.
 
-# Overview
+## Overview
 This project involved the containerization and deployment of a full-stack yolo application using Docker.
 
-# Technology stack
+## Technology stack
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
@@ -15,16 +17,16 @@ This project involved the containerization and deployment of a full-stack yolo a
 
 ------------------------------------------------ 
 
-# Requirements
+## Requirements
 Install the docker engine here:
 - [Docker](https://docs.docker.com/engine/install/) 
 - [Node.js and Node.js package manager (npm)](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04)  
 - [MongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)
 
 
-# Test-run the application locally
+## Test-run the application locally
 
-## Clone the repo
+### Clone the repo
 
 ```sh
 git clone https://github.com/Arnold-In-Tech/yolo-microservice
@@ -32,7 +34,7 @@ git clone https://github.com/Arnold-In-Tech/yolo-microservice
 
 ------------------------------------------------ 
 
-## Start backend
+### Start backend
 
 Check your operating system's built-in init system used to run and manage your mongod process:
 
@@ -60,7 +62,7 @@ npm start
 
 ------------------------------------------------ 
 
-## Start front-end
+### Start front-end
 
 Start client
 ```sh
@@ -80,7 +82,7 @@ npm start
 
 ------------------------------------------------
 
-# Orchestration using Docker compose
+## Orchestration using Docker compose
 
 - Install docker compose in your local computer here: [Docker compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
 
@@ -100,11 +102,14 @@ sudo docker-compose up
 
 ------------------------------------------------
 
-# Images repositories
+## Images repositories
 Images built can be accessed on Dockerhub here:
 - [Frontend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-client)
 - [Backend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-backend)
 
-# Author 
+## Author 
 Arnold. A., 2024
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE.md) file for details.
 
