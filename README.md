@@ -21,7 +21,8 @@ Install the docker engine here:
 - [Node.js and Node.js package manager (npm)](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04)  
 - [MongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)
 
-# How to test-run the application locally
+
+# Test-run the application locally
 
 ## Clone the repo
 
@@ -31,7 +32,7 @@ git clone https://github.com/Arnold-In-Tech/yolo-microservice
 
 ------------------------------------------------ 
 
-# Start backend
+## Start backend
 
 Check your operating system's built-in init system used to run and manage your mongod process:
 
@@ -59,7 +60,7 @@ npm start
 
 ------------------------------------------------ 
 
-# Start front-end
+## Start front-end
 
 Start client
 ```sh
@@ -101,9 +102,8 @@ sudo docker-compose up
 
 # Images repositories
 Images built can be accessed on Dockerhub here:
-[Frontend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-client)
-[Frontend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-backend)
-
+- [Frontend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-client)
+- [Backend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-backend)
 
 # Author 
 Arnold. A.
