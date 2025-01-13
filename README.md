@@ -107,12 +107,12 @@ Images built can be accessed on Dockerhub here:
 - [Frontend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-client)
 - [Backend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-backend)
 
-
+#
 # Configuration management IP3
+#
+## A: Create and configure Ubuntu 20.04 virtual machine
 
-## A: create and configure ubuntu 20.04 virtual machine
-
-- lists installed machines
+- List installed machines
 ```sh
 vagrant box list        
 ```
@@ -132,12 +132,57 @@ vagrant init geerlingguy/ubuntu2004
 
 - vagrant init command creates a Vagrant configuration file (Vagrantfile) for a Jeff Geerlings ubuntu 20.04 64-bit virtual machine image.
 
+- Ensure no authentication keys or certificates are needed for ease of marking (host_key_checking = False)
 
-<!-- - Finally boot your Ubuntu server:
+## B: Set up the playbook 
+
+### Set up a playbook to dockerize and run yolo e-commerce app using ansible
+
+### The playbook contains 3 roles 
+
+### Directory structure for roles:
+yolo-microservice/
+├── playbook.yml               # The main playbook file
+├── roles/                     # Contains all roles
+│   ├── backend-deployment/    
+│   │   ├── tasks/             # Tasks for the 'backend-deployment' role
+│   │   └── vars/              # Variables for the 'backend-deployment' role
+│   ├── frontend-deployment/   
+│   │   ├── tasks/             # Tasks for the 'frontend-deployment' role
+│   │   └── vars/              # Variables for the 'frontend-deployment' role
+│   └── setup-mongodb/         
+│       ├── tasks/              # Tasks for the 'setup-mongodb' role
+│       └── vars/               # Variables for the 'setup-mongodb' role
+└── inventory/                  # Inventory of hosts
+
+### Each role defines the tasks that will set up the docker containers generated previously. 
+
+### The actions to be executed are defined in "main.yml"
+
+### For backed-deployment and frontend-deployment tasks:
+- Pulls the backend repository from Dockerhub into /home/vagrant
+- Creates Node.js Backend Container
+- The image is already installed with necessary dependencies (e.g., npm).
+- Defines access network name and ports 
+- Starts the backend/frontend application.
+
+### For setup-mongodb:
+- Pulls the mongodb repository from Dockerhub into /home/vagrant
+- Creates mongo image 
+- Defines access ports, volumes, and network 
+- Starts the database
+
+## C: Boot up the server 
+
+### Finally boot your Ubuntu server, install and start containers run:
 
 ```sh
-vagrant up
-``` -->
+vagrant up --provision
+```
+
+## (Vagrant takes care of the rest).
+
+
 
 
 ## Author 
