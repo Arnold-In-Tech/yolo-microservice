@@ -13,6 +13,14 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "ubuntu/focal64"
+  config.vm.network :private_network, ip: "127.0.0.1"	  # our server address is maintained at the localhost address (127.0.0.1) on port (2222)
+  config.vm.hostname = "yolo.test"
+  config.ssh.insert_key = false			# no authentication keys or certificates are needed for ease of marking
+
+  config.vm.provider :virtualbox do |v|
+    v.memory = 2048
+  end
+
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
