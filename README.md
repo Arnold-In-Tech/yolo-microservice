@@ -170,10 +170,10 @@ yolo-microservice/
 
 - Each role defines the tasks that will set up the docker containers generated previously. 
 
-- The actions to be executed are defined in "main.yml"
+- The actions to be executed are defined in "main.yml" files
 
 ### Actions for backed-deployment and frontend-deployment roles:
-- Pulls the backend repository from Dockerhub
+- Pulls the backend repository from Dockerhub ( [Frontend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-client) , [Backend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-backend) )
 - Ensure the network 'app-net' exists
 - Creates Node.js Backend Container from the pulled image
 - The image is already installed with necessary dependencies (e.g., nodejs, npm).
@@ -191,7 +191,7 @@ yolo-microservice/
 ```sh
 vagrant provision
 ```
-### The application can be accessed via http://172.17.0.1:3000/ or http://localhost:3000/
+The application can be accessed via http://172.17.0.1:3000/ or http://localhost:3000/
 
 
 ## Author 
