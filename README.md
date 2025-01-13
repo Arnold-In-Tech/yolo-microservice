@@ -182,8 +182,6 @@ yolo-microservice/
 vagrant up --provision
 ```
 
-- (Vagrant takes care of the rest).
-
 
 
 
