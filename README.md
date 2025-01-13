@@ -107,6 +107,8 @@ Images built can be accessed on Dockerhub here:
 - [Frontend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-client)
 - [Backend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-backend)
 
+
+
 #
 # Configuration management IP3
 ## A: Create and configure Ubuntu 20.04 virtual machine
@@ -131,11 +133,21 @@ vagrant init geerlingguy/ubuntu2004
 
 - vagrant init command creates a Vagrant configuration file (Vagrantfile) for a Jeff Geerlings ubuntu 20.04 64-bit virtual machine image.
 
+- Add the server name, ansible_host IP address, ansible_port, ansible_user to the hosts/ansible.cfg file
+
 - Ensure no authentication keys or certificates are needed for ease of marking (host_key_checking = False)
+
+- Boot up your Ubuntu server
+```sh
+vagrant up
+```
+
 
 ## B: Set up the playbook 
 
 - Set up a playbook to dockerize and run yolo e-commerce app using ansible
+
+- Initially install required (docker, pip3) packages to your virtual machine
 
 - The playbook contains 3 roles 
 
@@ -161,9 +173,10 @@ yolo-microservice/
 - The actions to be executed are defined in "main.yml"
 
 ### Actions for backed-deployment and frontend-deployment roles:
-- Pulls the backend repository from Dockerhub into /home/vagrant
-- Creates Node.js Backend Container
-- The image is already installed with necessary dependencies (e.g., npm).
+- Pulls the backend repository from Dockerhub
+- Ensure the network 'app-net' exists
+- Creates Node.js Backend Container from the pulled image
+- The image is already installed with necessary dependencies (e.g., nodejs, npm).
 - Defines access network name and ports 
 - Starts the backend/frontend application.
 
@@ -173,15 +186,12 @@ yolo-microservice/
 - Defines access ports, volumes, and network 
 - Starts the database
 
-## C: Boot up the server 
-
-- Finally boot your Ubuntu server, install and start containers run:
+## C: Run your playbook to automatically install and start containers:
 
 ```sh
-vagrant up --provision
+vagrant provision
 ```
-
-
+### The application can be accessed via http://172.17.0.1:3000/ or http://localhost:3000/
 
 
 ## Author 
