@@ -4,6 +4,11 @@
     name: ahnoamu/ahnoamu-yolo-backend:v1.0.0
     source: pull
 
+- name: Ensure the network 'app-net' exists
+  docker_network:
+    name: app-net
+    state: present
+        
 - name: Create Node.js Backend Container
   docker_container:
     name: ahnoamu-yolo-backend
@@ -12,5 +17,5 @@
       - name: app-net
     ports:
       - "5000:5000"
-    command: "npm start"
+    command: "node server.js"
   become: yes
