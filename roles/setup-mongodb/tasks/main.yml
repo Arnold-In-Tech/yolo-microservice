@@ -9,6 +9,8 @@
       - ./app-mongo-data:/data/db
     networks:
       - name: app-net
+    command: "systemctl start mongod || service mongod start"
+      
   tags:
     - database
     - backend
