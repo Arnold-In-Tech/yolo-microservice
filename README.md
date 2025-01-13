@@ -136,11 +136,11 @@ vagrant init geerlingguy/ubuntu2004
 
 ## B: Set up the playbook 
 
-### Set up a playbook to dockerize and run yolo e-commerce app using ansible
+- Set up a playbook to dockerize and run yolo e-commerce app using ansible
 
-### The playbook contains 3 roles 
+- The playbook contains 3 roles 
 
-### Directory structure for roles:
+- Directory structure for roles:
 ```
 yolo-microservice/
 ├── playbook.yml 
@@ -156,9 +156,10 @@ yolo-microservice/
 │       └── vars/               # Variables for the 'setup-mongodb' role
 └── inventory/                  # Inventory of hosts
 ```
-### Each role defines the tasks that will set up the docker containers generated previously. 
 
-### The actions to be executed are defined in "main.yml"
+- Each role defines the tasks that will set up the docker containers generated previously. 
+
+- The actions to be executed are defined in "main.yml"
 
 ### For backed-deployment and frontend-deployment tasks:
 - Pulls the backend repository from Dockerhub into /home/vagrant
@@ -175,13 +176,13 @@ yolo-microservice/
 
 ## C: Boot up the server 
 
-### Finally boot your Ubuntu server, install and start containers run:
+- Finally boot your Ubuntu server, install and start containers run:
 
 ```sh
 vagrant up --provision
 ```
 
-## (Vagrant takes care of the rest).
+- (Vagrant takes care of the rest).
 
 
 
