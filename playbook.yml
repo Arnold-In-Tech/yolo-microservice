@@ -5,5 +5,4 @@
   roles: 
     - frontend-deployment
     - setup-mongodb   
-    - backend-deployment
-    
+    - backend-deployment    
