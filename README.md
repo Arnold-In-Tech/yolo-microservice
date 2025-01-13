@@ -161,14 +161,14 @@ yolo-microservice/
 
 - The actions to be executed are defined in "main.yml"
 
-### For backed-deployment and frontend-deployment tasks:
+### Actions for backed-deployment and frontend-deployment roles:
 - Pulls the backend repository from Dockerhub into /home/vagrant
 - Creates Node.js Backend Container
 - The image is already installed with necessary dependencies (e.g., npm).
 - Defines access network name and ports 
 - Starts the backend/frontend application.
 
-### For setup-mongodb:
+### Actions for setup-mongodb role:
 - Pulls the mongodb repository from Dockerhub into /home/vagrant
 - Creates mongo image 
 - Defines access ports, volumes, and network 
