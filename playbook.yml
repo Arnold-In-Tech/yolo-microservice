@@ -4,7 +4,7 @@
   become: true
   tasks:
 
-# === Install pip and docker first
+# === Install pip and docker
 
   - name: Update apt cache
     apt:
