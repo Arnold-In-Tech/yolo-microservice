@@ -109,7 +109,6 @@ Images built can be accessed on Dockerhub here:
 
 #
 # Configuration management IP3
-#
 ## A: Create and configure Ubuntu 20.04 virtual machine
 
 - List installed machines
