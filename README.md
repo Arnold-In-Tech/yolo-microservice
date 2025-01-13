@@ -1,5 +1,5 @@
 
-# Yolo microservice application
+# Yolo microservice application: IP2
 
 ## Description
 An e-commerce website that doubles-up as a dashboard where you can load retail products on to the site.
