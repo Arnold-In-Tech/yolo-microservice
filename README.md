@@ -141,11 +141,12 @@ vagrant init geerlingguy/ubuntu2004
 ### The playbook contains 3 roles 
 
 ### Directory structure for roles:
+```
 yolo-microservice/
-├── playbook.yml               # The main playbook file
+├── playbook.yml 
 ├── roles/                     # Contains all roles
 │   ├── backend-deployment/    
-│   │   ├── tasks/             # Tasks for the 'backend-deployment' role
+│   │   ├── tasks/             # Tasks for the 'backend-deployment'
 │   │   └── vars/              # Variables for the 'backend-deployment' role
 │   ├── frontend-deployment/   
 │   │   ├── tasks/             # Tasks for the 'frontend-deployment' role
@@ -154,7 +155,7 @@ yolo-microservice/
 │       ├── tasks/              # Tasks for the 'setup-mongodb' role
 │       └── vars/               # Variables for the 'setup-mongodb' role
 └── inventory/                  # Inventory of hosts
-
+```
 ### Each role defines the tasks that will set up the docker containers generated previously. 
 
 ### The actions to be executed are defined in "main.yml"
