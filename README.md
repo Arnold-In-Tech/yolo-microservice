@@ -107,6 +107,39 @@ Images built can be accessed on Dockerhub here:
 - [Frontend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-client)
 - [Backend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-backend)
 
+
+# Configuration management IP3
+
+## A: create and configure ubuntu 20.04 virtual machine
+
+- lists installed machines
+```sh
+vagrant box list        
+```
+
+
+- Add  Jeff Geerlings ubuntu 20.04 64-bit ‘box’ using the vagrant box add command:
+
+```sh
+vagrant box add geerlingguy/ubuntu2004       # Select the “virtualbox” option.
+```
+
+- Then create a default virtual server configuration using the box you just downloaded.
+
+```sh
+vagrant init geerlingguy/ubuntu2004
+```
+
+- vagrant init command creates a Vagrant configuration file (Vagrantfile) for a Jeff Geerlings ubuntu 20.04 64-bit virtual machine image.
+
+
+<!-- - Finally boot your Ubuntu server:
+
+```sh
+vagrant up
+``` -->
+
+
 ## Author 
 Arnold. A.
 
