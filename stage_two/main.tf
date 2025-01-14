@@ -48,3 +48,4 @@ resource "aws_security_group" "server_sg" {
     Name = "server_sg"
   }
 }
+
