@@ -111,87 +111,121 @@ Images built can be accessed on Dockerhub here:
 
 #
 # Configuration management IP3
-## A: Create and configure Ubuntu 20.04 virtual machine
 
-- List installed machines
+# Local Ubuntu VM Deployment with Vagrant and Ansible
+
+This guide explains how to deploy the Yolo e-commerce app to a local Ubuntu 20.04 virtual machine using Vagrant for infrastructure provisioning and Ansible playbooks to configure and deploy the application.
+
+## Technology stack
+![Vagrant](https://img.shields.io/badge/Vagrant-1868F2?style=for-the-badge&logo=Vagrant&logoColor=white)
+![Ansible](https://img.shields.io/badge/Ansible-000000?style=for-the-badge&logo=ansible&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
+
+
+## A: Create and Configure Ubuntu 20.04 Virtual Machine
+
+### 1. List Installed Vagrant Machines
+To view the list of available Vagrant boxes:
+
 ```sh
-vagrant box list        
+vagrant box list
 ```
 
-
-- Add  Jeff Geerlings ubuntu 20.04 64-bit ‘box’ using the vagrant box add command:
+### 2. Add Jeff Geerlings’ Ubuntu 20.04 64-bit Box
+Download and add the `geerlingguy/ubuntu2004` box:
 
 ```sh
-vagrant box add geerlingguy/ubuntu2004       # Select the “virtualbox” option.
+vagrant box add geerlingguy/ubuntu2004
 ```
 
-- Then create a default virtual server configuration using the box you just downloaded.
+Choose the **virtualbox** option when prompted.
+
+### 3. Initialize a New Virtual Machine Configuration
+Create a new Vagrant configuration for the Ubuntu 20.04 box:
 
 ```sh
 vagrant init geerlingguy/ubuntu2004
 ```
 
-- vagrant init command creates a Vagrant configuration file (Vagrantfile) for a Jeff Geerlings ubuntu 20.04 64-bit virtual machine image.
+This will generate a `Vagrantfile` that configures the virtual machine using the downloaded box.
 
-- Add the server name, ansible_host IP address, ansible_port, ansible_user to the hosts/ansible.cfg file
+### 4. Configure Hosts and Ansible
+Edit the `hosts` and `ansible.cfg` files with the following:
 
-- Ensure no authentication keys or certificates are needed for ease of marking (host_key_checking = False)
+- Add the server name, `ansible_host` (IP address), `ansible_port`, and `ansible_user` (usually `vagrant`).
+- Set `host_key_checking = False` in `ansible.cfg` to avoid issues with authentication keys or certificates.
 
-- Boot up your Ubuntu server
+### 5. Boot the Virtual Machine
+Start your Ubuntu server with the following command:
+
 ```sh
 vagrant up
 ```
 
+This will bring up the virtual machine and make it ready for provisioning.
 
-## B: Set up the playbook 
+## B: Set Up the Ansible Playbook
 
-- Set up a playbook to dockerize and run yolo e-commerce app using ansible
+### 1. Set Up the Playbook to Dockerize the Yolo E-Commerce App
+Create a playbook that will install the necessary packages (Docker, pip3) on the virtual machine and deploy the Yolo e-commerce app.
 
-- Initially install required (docker, pip3) packages to your virtual machine
+### 2. Directory Structure for Ansible Roles
+The playbook will be organized into roles for deploying the backend, frontend, and MongoDB components of the application. The directory structure looks like this:
 
-- The playbook contains 3 roles 
-
-- Directory structure for roles:
 ```
 yolo-microservice/
-├── playbook.yml 
-├── roles/                     # Contains all roles
+├── playbook.yml                # Main playbook
+├── roles/                      # Contains all roles
 │   ├── backend-deployment/    
-│   │   ├── tasks/             # Tasks for the 'backend-deployment'
-│   │   └── vars/              # Variables for the 'backend-deployment' role
+│   │   ├── tasks/              # Tasks for backend deployment
+│   │   └── vars/               # Variables for backend deployment
 │   ├── frontend-deployment/   
-│   │   ├── tasks/             # Tasks for the 'frontend-deployment' role
-│   │   └── vars/              # Variables for the 'frontend-deployment' role
+│   │   ├── tasks/              # Tasks for frontend deployment
+│   │   └── vars/               # Variables for frontend deployment
 │   └── setup-mongodb/         
-│       ├── tasks/              # Tasks for the 'setup-mongodb' role
-│       └── vars/               # Variables for the 'setup-mongodb' role
+│       ├── tasks/              # Tasks for MongoDB setup
+│       └── vars/               # Variables for MongoDB setup
 └── inventory/                  # Inventory of hosts
 ```
 
-- Each role defines the tasks that will set up the docker containers generated previously. 
+### 3. Role Actions
 
-- The actions to be executed are defined in "main.yml" files
+#### Backend and Frontend Deployment
+- **Pulls the backend and frontend repositories** from Docker Hub:
+  - [Frontend Image](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-client)
+  - [Backend Image](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-backend)
+  
+- **Ensures the network 'app-net'** exists for inter-container communication.
+- **Creates Docker containers** for both the backend (Node.js) and frontend.
+  - The backend image comes pre-installed with the necessary dependencies like Node.js and npm.
+  
+- **Defines network name and access ports** for each container.
+- **Starts the backend and frontend applications**.
 
-### Actions for backed-deployment and frontend-deployment roles:
-- Pulls the backend repository from Dockerhub ( [Frontend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-client) , [Backend](https://hub.docker.com/r/ahnoamu/ahnoamu-yolo-backend) )
-- Ensure the network 'app-net' exists
-- Creates Node.js Backend Container from the pulled image
-- The image is already installed with necessary dependencies (e.g., nodejs, npm).
-- Defines access network name and ports 
-- Starts the backend/frontend application.
+#### MongoDB Setup
+- **Pulls the MongoDB image** from Docker Hub and stores it in `/home/vagrant` directory.
+- **Creates a MongoDB container**.
+- **Defines access ports, volumes, and network settings**.
+- **Starts the MongoDB container** for database services.
 
-### Actions for setup-mongodb role:
-- Pulls the mongodb repository from Dockerhub into /home/vagrant
-- Creates mongo image 
-- Defines access ports, volumes, and network 
-- Starts the database
+## C: Run the Playbook to Automatically Install and Start Containers
 
-## C: Run your playbook to automatically install and start containers:
+Once the virtual machine is up and the playbook is configured, run the following command to provision the VM and start the application containers:
 
 ```sh
 vagrant provision
 ```
-The application can be accessed via http://172.17.0.1:3000/ or http://localhost:3000/
+
+This will install Docker, pull the required images, create the necessary containers, and start the application.
+
+### 4. Access the Application
+You can access the Yolo e-commerce app by visiting the following URLs in your browser:
+
+- http://172.17.0.1:3000/
+OR
+- http://localhost:3000/
+
+These URLs will point to the application running on your local Ubuntu VM.
 
 
 ## Author 
