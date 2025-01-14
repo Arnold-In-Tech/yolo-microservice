@@ -49,3 +49,22 @@ resource "aws_security_group" "server_sg" {
   }
 }
 
+resource "aws_instance" "server1" {
+  ami           = "ami-0cd59ecaf368e5ccf"
+  security_groups = [aws_security_group.server_sg.name]
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "server1"
+  }
+}
+
+resource "aws_instance" "server2" {
+  ami             = "ami-0cd59ecaf368e5ccf"
+  instance_type   = "t2.micro"
+  security_groups = [aws_security_group.server_sg.name]
+
+  tags = {
+    Name = "server2"
+  }
+}
