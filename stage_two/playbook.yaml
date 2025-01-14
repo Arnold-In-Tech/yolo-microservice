@@ -1,0 +1,59 @@
+- hosts: all
+  become: true
+  tasks:
+
+# === Test server connectivity
+    - name: test connectivity
+      ping:
+
+# === Update server
+    - name: Update server
+      apt:
+        update_cache: true
+
+# === Install pip and docker
+    - name: Install required packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+        
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker APT Repository
+      apt_repository:
+  #      repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+
+    - name: Ensure Docker is running and enabled
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    
+  # === Run the roles
+  roles: 
+    - frontend-deployment
+    - setup-mongodb   
+    - backend-deployment        
