@@ -123,7 +123,12 @@ ansible-playbook playbook.yml
 
 ## 14. Access the Deployed Application
 
-After the playbook runs successfully, the website will be available at the IP address of the first server (e.g., `server-1` IP). The second server will have a similar setup.
+After the playbook runs successfully, the website will be available at the IP address of the first server (e.g., `server-1` IP). The second server will have a similar setup:
+
+- http://54.173.108.17/
+OR
+- http://54.168.100.112/
+
 
 ## 15. Destroy AWS Resources to Avoid Charges
 
