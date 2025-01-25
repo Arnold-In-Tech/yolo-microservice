@@ -14,16 +14,24 @@ RUN npm install
 COPY . .
 
 #Add multi-stage build
-FROM alpine:3.16.7
+FROM alpine:3.9
 
 WORKDIR /app
 
-RUN apk update && apk add --update nodejs
+RUN apk update && apk add --update nodejs && apk add mongodb mongodb-tools && \
+    echo 'http://dl-cdn.alpinelinux.org/alpine/v3.9/main' >> /etc/apk/repositories && \		
+    echo 'http://dl-cdn.alpinelinux.org/alpine/v3.9/community' >> /etc/apk/repositories		# Alpine 3.9 Repository
+
 
 COPY --from=build /usr/src/app /app
 
-# Expose the port the app runs on
+# Create MongoDB data directory
+RUN mkdir -p /data/db
+
+# Expose necessary ports (MongoDB default: 27017, Node app: 3000)
+EXPOSE 27017
 EXPOSE 5000
 
-# Define the command to run your app
-CMD ["node", "server.js"]
+# Start MongoDB and the Node.js application
+CMD mongod --bind_ip_all & node server.js
+
