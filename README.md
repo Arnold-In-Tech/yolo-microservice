@@ -82,7 +82,56 @@ npm start
 
 ------------------------------------------------
 
+## Build docker images and push to github
+------------------------------------------------ 
+
+   - Build back-end
+
+```sh
+cd ./backend
+sudo docker build -t ahnoamu/ahnoamu-yolo-backend:v1.0.1 .
+```
+
+   - Build front-end
+
+```sh
+cd ./client
+sudo docker build -t ahnoamu/ahnoamu-yolo-client:v1.0.1 .
+```
+
+### Test-run built images: run images in a container
+
+   - Run back-end container
+
+```sh
+cd ./backend
+sudo docker run --name backend-container -d -it  --rm -p 5000:5000 ahnoamu/ahnoamu-yolo-backend:v1.0.1
+```
+
+   - Run front-end container
+
+```sh
+cd ./client
+sudo docker run --name frontend-container -d -it  --rm -p 3000:3000 ahnoamu/ahnoamu-yolo-client:v1.0.1
+```
+
+Check port 3000 to ascertain that the website is active (localhost:3000)
+
+### Push docker images to dockerhub
+
+```sh
+cd ./backend
+sudo docker push ahnoamu/ahnoamu-yolo-client:v1.0.1
+cd ../client
+sudo docker push ahnoamu/ahnoamu-yolo-backend:v1.0.1
+cd ..
+```
+
+------------------------------------------------ 
+
 ## Orchestration using Docker compose
+
+------------------------------------------------ 
 
 - Install docker compose in your local computer here: [Docker compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
 
