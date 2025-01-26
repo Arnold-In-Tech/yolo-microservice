@@ -75,7 +75,7 @@ minikube delete
 
 -------------------------------------------------------------------------------------------------------- 
 
-## B. Ochestration on a GKE (Google Kubernetes Engine)
+## B. Orchestration on a GKE (Google Kubernetes Engine)
 
 To deploy your backend, database, and frontend services within a cloud native environment like Google Kubernetes Engine (GKE):
 
@@ -154,7 +154,7 @@ Create a Persistent Disk using the gcloud CLI with the following commands:
 
 **(i). Create the Persistent Disk**:
 
-Use the following command to create a 1 GiB persistent disk named `my-mongo-disk` in your desired region and zone (i.e., `us-central1-a`):
+Use the following command to create a 10GiB persistent disk named `my-mongo-disk` in your desired region and zone (i.e., `us-central1-a`):
 
 ```bash
 gcloud compute disks create my-mongo-disk \
@@ -215,9 +215,12 @@ The front-end service can be accessed via the following live `EXTERNAL-IP` : [**
 
 - **Scaling**: You can scale the deployments by changing the `replicas` field in the `Deployment` YAML.
 
+-------------------------------------------------------------------------------------------------------- 
+
 The deployed image looks like below:
 ![Yolo front-end](./front-end-image.png?raw=true)
 
+-------------------------------------------------------------------------------------------------------- 
 
 # Author
 Arnold .A.
