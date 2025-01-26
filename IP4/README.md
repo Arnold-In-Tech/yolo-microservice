@@ -218,6 +218,9 @@ The front-end service can be accessed via the following live `EXTERNAL-IP` : [**
 -------------------------------------------------------------------------------------------------------- 
 
 The deployed image looks like below:
+
+
+
 ![Yolo front-end](./front-end-image.png?raw=true)
 
 -------------------------------------------------------------------------------------------------------- 
