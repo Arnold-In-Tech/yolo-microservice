@@ -1,10 +1,25 @@
 
 # Orchestration with Google Kubernetes Engine : IP4
 
----
+--------------------------------------------------------------------------------------------------------
+
+Access the deployed application via the following live `EXTERNAL-IP` : [**http://34.122.212.56:3000**](http://34.122.212.56:3000)
+
+The deployed image looks like:
+
+
+![Yolo front-end](./front-end-image.png?raw=true)
+
+--------------------------------------------------------------------------------------------------------
+
+### Technology stack
+![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
+
+
 ## A. Test-run the ochestration locally on a minikube cluster
 
-**(i). Create a minikube cluster:**
+**(i). Create a minikube cluster**
 
 ```sh
 minikube start
@@ -216,12 +231,6 @@ The front-end service can be accessed via the following live `EXTERNAL-IP` : [**
 - **Scaling**: You can scale the deployments by changing the `replicas` field in the `Deployment` YAML.
 
 -------------------------------------------------------------------------------------------------------- 
-
-The deployed image looks like below:
-
-
-
-![Yolo front-end](./front-end-image.png?raw=true)
 
 -------------------------------------------------------------------------------------------------------- 
 
