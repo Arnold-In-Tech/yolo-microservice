@@ -16,7 +16,6 @@ The deployed image looks like:
 ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
 
---------------------------------------------------------------------------------------------------------
 
 
 ## A. Test-run the ochestration locally on a minikube cluster
@@ -90,7 +89,6 @@ minikube delete
 
 
 
--------------------------------------------------------------------------------------------------------- 
 
 ## B. Orchestration on a GKE (Google Kubernetes Engine)
 
@@ -103,7 +101,6 @@ To deploy your backend, database, and frontend services within a cloud native en
 3. **kubectl**: Ensure you have `kubectl` installed and configured to access your GKE cluster.
 4. **Persistent Disk**: GKE doesn’t support `hostPath` volumes in production. Use `PersistentVolume` backed by a GCP `PersistentDisk` instead.
 
----
 
 ### Steps to Deploy:
 
