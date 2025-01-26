@@ -1,0 +1,42 @@
+# Frontend Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ahnoamu-yolo-client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ahnoamu-yolo-client
+  template:
+    metadata:
+      labels:
+        app: ahnoamu-yolo-client
+    spec:
+      containers:
+        - name: ahnoamu-yolo-client
+          image: docker.io/ahnoamu/ahnoamu-yolo-client:v1.0.1
+          ports:
+            - containerPort: 3000
+          env:
+            - name: BACKEND_URL
+              value: "http://ahnoamu-yolo-backend:5000"  # Backend URL listening on port 5000; # ahnoamu-yolo-backend: is the label of the backend pods        
+          stdin: true  # Enable interactive terminal
+          tty: true  # Enable a pseudo-terminal (like -it in Docker)
+
+
+---
+# Frontend Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: ahnoamu-yolo-client
+spec:
+  type: LoadBalancer  # Exposes the frontend externally via a cloud load balancer
+  selector:
+    app: ahnoamu-yolo-client
+  ports:
+    - protocol: TCP
+      port: 3000       # Service port 
+      targetPort: 3000  # Container port 
+      nodePort: 30001   # exposes a port outside the cluster            
