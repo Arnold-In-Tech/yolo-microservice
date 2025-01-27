@@ -1,10 +1,10 @@
 # MongoDB Deployment
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: app-ip-mongo
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: app-ip-mongo
@@ -24,38 +24,19 @@ spec:
       volumes:
         - name: mongo-storage
           persistentVolumeClaim:
-            claimName: mongo-pvc  # This should be an existing PersistentDisk in your GCP project
-
-
----
-# MongoDB PersistentVolumeClaim (PVC)
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mongo-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-
-
----
-# MongoDB Persistent Volume (PV) on GCP Persistent Disk
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mongo-pv
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain  # Keeps disk - deletion of the database pod does not lead to the loss of items
-  gcePersistentDisk:
-    pdName: my-mongo-disk    # This should be an existing PersistentDisk in your GCP project
-    fsType: ext4
+            claimName: mongo-storage-0    # Dynamically generated name
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-storage
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: ""
+        volumeMode: Filesystem
+        persistentVolumeReclaimPolicy: Retain   # Keeps disk - deletion of the database pod does not lead to the loss of items
 
 
 
