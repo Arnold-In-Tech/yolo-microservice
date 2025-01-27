@@ -24,7 +24,7 @@ spec:
       volumes:
         - name: mongo-storage
           persistentVolumeClaim:
-            claimName: mongo-pvc  # make sure this PVC exists or replace with an emptyDir or other volume type
+            claimName: mongo-pvc  # This should be an existing PersistentDisk in your GCP project
 
 
 ---
