@@ -114,19 +114,9 @@ Get credentials for the new cluster:
 gcloud container clusters get-credentials my-cluster --zone us-central1-a
 ```
 
-#### 3. Create Persistent Disk for GKE
+#### 3. Persistent Disk for GKE
 
-Create a 10GiB Persistent Disk:
-```bash
-gcloud compute disks create my-mongo-disk --size=10GiB --zone=us-central1-a --type=pd-standard
-```
-
-Verify disk creation:
-```bash
-gcloud compute disks list
-```
-
-Modify `mongoDB-deployment.yaml` to use the GCP PersistentDisk instead of `hostPath`.
+StatefulSets dynamically generates Persistent Volume Claims (PVC) names based on the `volumeClaimTemplates` and the pod ordinal (e.g., `mongo-storage-0`, `mongo-storage-1`).
 
 #### 4. Deploy to GKE
 
