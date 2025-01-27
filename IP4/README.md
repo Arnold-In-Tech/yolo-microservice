@@ -1,244 +1,168 @@
+---
 
-# Orchestration with Google Kubernetes Engine : IP4
+# Orchestration with Google Kubernetes Engine (IP4)
 
---------------------------------------------------------------------------------------------------------
+Access the deployed application via the live `EXTERNAL-IP`: [**http://34.122.212.56:3000**](http://34.122.212.56:3000)
 
-Access the deployed application via the following live `EXTERNAL-IP` : [**http://34.122.212.56:3000**](http://34.122.212.56:3000)
-
-The deployed image looks like:
-
+The deployed application looks like:
 
 ![Yolo front-end](./front-end-image.png?raw=true)
 
---------------------------------------------------------------------------------------------------------
+---
 
-## Technology stack
+## Technology Stack
+
 ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
 
+---
 
+## A. Test-Run on Minikube
 
-## A. Test-run the ochestration locally on a minikube cluster
-
-**(i). Create a minikube cluster**
-
+### (i) Start Minikube Cluster
 ```sh
 minikube start
 ```
 
-Confirm minikube cluster is running:
+Check the status of the Minikube cluster to confirm it is running:
 ```sh
 minikube status
 ```
 
-**(ii). Deploy app**
+### (ii) Deploy the Application
 
-- Deploy the backend
-
+- **Backend**:
 ```sh
 kubectl apply -f minikube-test-deployment/backend-deployment.yaml
 ```
-
-- Deploy the frontend
-	
+- **Frontend**:
 ```sh
 kubectl apply -f minikube-test-deployment/frontend-deployment.yaml
 ```
-
-- Deploy the database
-
+- **Database**:
 ```sh
 kubectl apply -f minikube-test-deployment/mongoDB-deployment.yaml
 ```
 
-
-Confirm the deployments are running:	
+Confirm the deployments are running:
 ```sh
 kubectl get pods
 ```
 
+### (iii) Access the Frontend
 
-**(iii). To access the frontend outside the cluster run the command below:**
-
-(N/B: minikube does not provide an external IP). 
-
+Minikube doesn't provide an external IP. To access the frontend, run:
 ```sh
 kubectl get svc
+minikube service ahnoamu-yolo-client
 ```
+This will open the frontend in your default browser.
 
+### (iv) Delete the Resources
+
+Once done, clean up with:
 ```sh
-minikube service ahnoamu-yolo-client 
+minikube delete
 ```
-The above command will automatically open the frontend in your default web browser using the Minikube IP and assigned NodePort.
 
+#### Service Communication
 
-**(iv) Delete the resource thereafter.**
+- The backend connects to MongoDB via the service name `app-ip-mongo`.
+- The frontend connects to the backend via the service name `ahnoamu-yolo-backend`.
+- Kubernetes manages container networking automatically, so no need to define explicit networks.
 
-```sh
-minikube delete 
-```
- 
+---
 
-#### Service Communication 
-- The backend connects to MongoDB using the Mongo service name (app-ip-mongo), and the frontend connects to the backend using the backend service name (ahnoamu-yolo-backend).
+## B. Orchestration on Google Kubernetes Engine (GKE)
 
-- Cluster Networking: Kubernetes manages the network for containers automatically, so no need to explicitly define networks like in Docker Compose.
+### Prerequisites
 
+1. **Google Cloud Account**: You need a Google Cloud account and project.
+2. **GKE Cluster**: Ensure a GKE cluster is created in your project.
+3. **kubectl**: Install and configure `kubectl` to access your GKE cluster.
+4. **Persistent Disk**: GKE requires `PersistentVolume` backed by a GCP `PersistentDisk` (not `hostPath`).
 
---------------------------------------------------------------------------------------------------------
+### Steps to Deploy
 
+#### 1. Set Up GKE Cloud Environment
 
-
-
-## B. Orchestration on a GKE (Google Kubernetes Engine)
-
-To deploy your backend, database, and frontend services within a cloud native environment like Google Kubernetes Engine (GKE):
-
-### Prerequisites:
-
-1. **Google Cloud Platform Account**: You need a Google Cloud account and project.
-2. **GKE Cluster**: Ensure you have a GKE cluster created in your project. If not, you can create one using the GCP Console or `gcloud` CLI.
-3. **kubectl**: Ensure you have `kubectl` installed and configured to access your GKE cluster.
-4. **Persistent Disk**: GKE doesn’t support `hostPath` volumes in production. Use `PersistentVolume` backed by a GCP `PersistentDisk` instead.
-
-
-### Steps to Deploy:
-
-#### 1. Set up GKE cloud environment:
-
-Open cloud console
-
-Activate cloud shell
-
-Authorise active account
+Activate Cloud Shell and authenticate:
 ```bash
 gcloud auth list
-```
-Cloud Shell needs permission to use your credentials for the gcloud CLI command. Authorize, else login using:
-   
-```bash
 gcloud auth login
 ```
-This will open a web browser where you can log in to your Google Cloud account.
 
+Set your Google Cloud project and compute region/zone:
 ```bash
 gcloud config set account `ACCOUNT`
-```
-	
-List the project ID with this command:
-```bash	
-gcloud config list project	
-```
-
-Set a default compute zone
-
-- Set the default compute region:
-
-```bash
-gcloud config set compute/region us-central1	
-```
-- Set the default compute zone:
-```bash
+gcloud config list project
+gcloud config set compute/region us-central1
 gcloud config set compute/zone us-central1-a
 ```
 
+#### 2. Create GKE Cluster
 
-#### 2. Create and set up GKE cluster:
-
-Create a GKE cluster of 50GB disc size:
-   
+Create a GKE cluster with a 50GB disk size:
 ```bash
-gcloud container clusters create my-cluster   --machine-type=e2-medium   --zone us-central1-a   --disk-type pd-standard   --disk-size 50GB
+gcloud container clusters create my-cluster --machine-type=e2-medium --zone us-central1-a --disk-size 50GB
 ```
 
-After the cluster is created, get authentication credentials for the cluster to interact with it.
-
+Get credentials for the new cluster:
 ```bash
 gcloud container clusters get-credentials my-cluster --zone us-central1-a
 ```
 
+#### 3. Create Persistent Disk for GKE
 
-#### 3. Create and set up Persistent Volume (PV) for GKE:
-   
-GKE doesn’t support `hostPath` as a storage option for production workloads. A Persistent Disk is used instead. 
-Create a Persistent Disk in the cloud, then modify the `PersistentVolume` definition on mongoDB-deployment.yaml to use a GCP `PersistentDisk`:
-
-
-Create a Persistent Disk using the gcloud CLI with the following commands:
-
-**(i). Create the Persistent Disk**:
-
-Use the following command to create a 10GiB persistent disk named `my-mongo-disk` in your desired region and zone (i.e., `us-central1-a`):
-
+Create a 10GiB Persistent Disk:
 ```bash
-gcloud compute disks create my-mongo-disk \
-  --size=10GiB \
-  --zone=us-central1-a \
-  --type=pd-standard
+gcloud compute disks create my-mongo-disk --size=10GiB --zone=us-central1-a --type=pd-standard
 ```
 
-- The `--type=pd-standard` option creates a standard persistent disk. If you want to use an SSD-backed disk, replace `pd-standard` with `pd-ssd`.
-
-
-**(iii). Verify the Disk Creation**:
-
-To confirm the disk was created, you can list your disks with:
-
+Verify disk creation:
 ```bash
 gcloud compute disks list
 ```
-- This will display all the disks in your project and their status.
 
-**(iv). Update the yaml file for GKE:**
+Modify `mongoDB-deployment.yaml` to use the GCP PersistentDisk instead of `hostPath`.
 
-- Instead of using `hostPath`, modify the `PersistentVolume` to use a GCP `PersistentDisk` on mongoDB-deployment.yaml
+#### 4. Deploy to GKE
 
-- Both the backend and frontend services are set to `LoadBalancer`. For the frontend, the service is exposed on port `3000`, and for the backend, it's on port `5000`.
-
-- The MongoDB service uses `ClusterIP` so that it's only accessible within the cluster, as intended.
-
-
-
-#### 4. Deploy to GKE:
-
-**(i). Apply the Kubernetes Config**:
-Apply the configuration to your GKE cluster using `kubectl`:
-
+Apply the Kubernetes configuration files:
 ```bash
 kubectl apply -f mongoDB-deployment.yaml
 kubectl apply -f backend-deployment.yaml
 kubectl apply -f frontend-deployment.yaml
 ```
 
-**(ii). Check the Status**:
-Monitor the status of your deployments:
-
+Check the status of the deployments:
 ```bash
 kubectl get pods
 ```
 
-**(iii). Accessing Services**:
-Once deployed, you can access the frontend and backend using the external IP addresses provisioned by the `LoadBalancer` services. Use the following command to get the external IPs:
+#### 5. Access the Services
 
+Once deployed, get the external IPs:
 ```bash
 kubectl get svc
 ```
-   
-The front-end service can be accessed via the following live `EXTERNAL-IP` : [**http://34.122.212.56:3000**](http://34.122.212.56:3000)
 
+Access the frontend via the live `EXTERNAL-IP`: [**http://34.122.212.56:3000**](http://34.122.212.56:3000)
 
-- **Scaling**: You can scale the deployments by changing the `replicas` field in the `Deployment` YAML.
+#### Scaling
 
--------------------------------------------------------------------------------------------------------- 
+To scale the deployments, adjust the `replicas` field in the deployment YAML files.
 
--------------------------------------------------------------------------------------------------------- 
+---
 
-# Author
+## Author
+
 Arnold .A.
 
+## License
 
-# Licence
-All assets and code are under the [MIT](https://choosealicense.com/licenses/mit/) LICENSE and in the public domain unless specified otherwise.
+All assets and code are licensed under the [MIT License](https://choosealicense.com/licenses/mit/) unless otherwise specified.
 
+---
 
 
