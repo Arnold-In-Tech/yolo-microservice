@@ -2,9 +2,10 @@
 
 --------------------------------------------------------------------------------------------------------
 
-Access the deployed application via the live `EXTERNAL-IP` : [**http://34.122.212.56:3000**](http://34.122.212.56:3000)
+Access the deployed application via the live `EXTERNAL-IP` : <a href="http://34.122.212.56:3000" target="_blank">**http://34.122.212.56:3000**</a>
 
 The deployed application looks like:
+
 
 ![Yolo front-end](./front-end-image.png?raw=true)
 
@@ -148,7 +149,7 @@ Once deployed, get the external IPs:
 kubectl get svc
 ```
 
-Access the frontend via the live `EXTERNAL-IP`: [**http://34.122.212.56:3000**](http://34.122.212.56:3000)
+Access the frontend via the live `EXTERNAL-IP`: <a href="http://34.122.212.56:3000" target="_blank">**http://34.122.212.56:3000**</a>
 
 #### Scaling
 
