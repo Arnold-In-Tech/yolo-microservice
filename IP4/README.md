@@ -1,12 +1,13 @@
----
+# Orchestration with Google Kubernetes Engine : IP4
 
-# Orchestration with Google Kubernetes Engine (IP4)
+--------------------------------------------------------------------------------------------------------
 
-Access the deployed application via the live `EXTERNAL-IP`: [**http://34.122.212.56:3000**](http://34.122.212.56:3000)
+Access the deployed application via the live `EXTERNAL-IP` : [**http://34.122.212.56:3000**](http://34.122.212.56:3000)
 
 The deployed application looks like:
 
 ![Yolo front-end](./front-end-image.png?raw=true)
+
 
 ---
 
