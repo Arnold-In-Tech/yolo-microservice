@@ -52,7 +52,7 @@ spec:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Retain  # Keeps disk - deletion of the database pod does not lead to the loss of items
   gcePersistentDisk:
     pdName: my-mongo-disk    # This should be an existing PersistentDisk in your GCP project
     fsType: ext4
