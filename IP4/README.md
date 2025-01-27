@@ -116,7 +116,7 @@ gcloud container clusters get-credentials my-cluster --zone us-central1-a
 
 #### 3. Persistent Disk for GKE
 
-StatefulSets dynamically generates Persistent Volume Claims (PVC) names based on the `volumeClaimTemplates` and the pod ordinal (e.g., `mongo-storage-0`, `mongo-storage-1`).
+StatefulSets (refer to `mongoDB-deployment.yaml` file) dynamically generates Persistent Volume Claims (PVC) names based on the `volumeClaimTemplates` and the pod ordinal (e.g., `mongo-storage-0`, `mongo-storage-1`).
 
 #### 4. Deploy to GKE
 
